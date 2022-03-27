@@ -11,6 +11,7 @@ pipeline{
 		AWS_REGION = ""
 		JENKINS_AWS_ID = "dasdsa"
 	}
+	tools {dockerTool  "docker" } 
 	stages{
 		stage('docker image'){
 			steps{
