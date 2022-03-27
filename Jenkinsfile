@@ -16,8 +16,8 @@ pipeline{
 		stage('docker image'){
 			steps{
 				script{
-					sh 'rm -f ~/.dockercfg ~/.docker/config.json || true'
-					sh 'ls -a'
+					// sh 'rm -f ~/.dockercfg ~/.docker/config.json || true'
+					sh 'docker --version'
 					// configure registry
 					docker.withRegistry('https://062768259532.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:59b8faec-d998-4ac7-af96-1352d86b595e') {
 					// build image
