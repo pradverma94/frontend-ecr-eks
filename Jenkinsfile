@@ -11,7 +11,7 @@ pipeline{
 		AWS_REGION = ""
 		JENKINS_AWS_ID = "dasdsa"
 	}
-	// tools {dockerTool  "docker" } 
+	tools {dockerTool  "docker" } 
 	stages{
 		// stage('Initialize'){
         // def dockerHome = tool 'docker'
