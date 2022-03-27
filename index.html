@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Revv EKS cluster</h1>
+    <h2>Chal jana bhai</h2>
+    <h4>from service A</h4>
+    <div style="height: 100px; overflow: scroll">
+      <p id="res1" style="background-color: antiquewhite; padding: 2%"></p>
+    </div>
+    <br />
+    <h4>from service B</h4>
+    <div style="height: 100px; overflow: scroll">
+      <p id="res2" style="background-color: antiquewhite; padding: 2%"></p>
+    </div>
+    <script>
+      const hostA = "https://st-core.akankshamusic.in";
+      fetch(hostA+"/")
+        .then(function (response) {
+          // Successfull fetch return as json
+          return response.json();
+        })
+        .then(function (data) {
+          // Data now contains the json
+          setTimeout(() => {
+            document.getElementById("res1").innerHTML = JSON.stringify(data);
+            console.log(data[0]);
+          }, 1000);
+        })
+        .catch(function (error) {
+          // A Error occured
+          console.log(error);
+        });
+
+
+      fetch(hostA+"/pricing-service")
+        .then(function (response) {
+          // Successfull fetch return as json
+          return response.json();
+        })
+        .then(function (data) {
+          // Data now contains the json
+          setTimeout(() => {
+            document.getElementById("res2").innerHTML = JSON.stringify(data);
+            console.log(data[0]);
+          }, 1000);
+        })
+        .catch(function (error) {
+          // A Error occured
+          console.log(error);
+        });
+
+
+    </script>
+  </body>
+</html>
