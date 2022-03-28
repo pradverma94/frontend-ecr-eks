@@ -30,7 +30,7 @@ pipeline{
 					// build image
 						def customImage = docker.build("frontend-app")
 					// push image
-						customImage.push("release:v1")
+						customImage.push("${BUILD_NUMBER}")
 					}
 					// docker.withRegistry("https://062768259532.dkr.ecr.ap-south-1.amazonaws.com", "ecr:ap-south-1:59b8faec-d998-4ac7-af96-1352d86b595e") {
 					// 	docker.image("frontend-app:v2").push()
