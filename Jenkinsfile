@@ -30,16 +30,12 @@ pipeline{
 				}
 			}
 		}
-		stage('deploy') {
-            steps{
+		stage('Deploying App to Kubernetes') {
+			steps {
 				script {
-					sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
-					sh 'export KUBECONFIG=~/.kube/config'
-					sh 'chmod +x ./kubectl'
-					sh './kubectl cluster-info'
+					kubernetesDeploy(configs: "deploymentservice.yml | sed s/1.0.0/${BUILD_NUMBER}/g", kubeconfigId: "kubernetes")
 				}
 			}
 		}
-		
 	}
 }
