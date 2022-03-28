@@ -33,7 +33,7 @@ pipeline{
 		stage('Deploying App to Kubernetes') {
 			steps {
 				script {
-					kubernetesDeploy(configs: "frontend-app.yaml | sed s/1.0.0/${BUILD_NUMBER}/g", kubeconfigId: "kubernetes")
+					kubernetesDeploy(configs: "frontend-app.yaml | sed s/latest/${BUILD_NUMBER}/g", kubeconfigId: "kubernetes")
 				}
 			}
 		}
