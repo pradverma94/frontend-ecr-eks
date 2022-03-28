@@ -30,16 +30,30 @@ pipeline{
 				}
 			}
 		}
-		stage('Deploying App to Kubernetes') {
-			steps {
-				script {
-					sh "ls -a"
-					sh "cat frontend-app.yaml | sed s/latest/${BUILD_NUMBER}/g > frontend-app-tmp.yaml"
-					sh "ls -a"
-					sh "cat frontend-app-tmp.yaml"
-					kubernetesDeploy(configs: "frontend-app-tmp.yaml", kubeconfigId: "kubernetes")
-				}
-			}
-		}
+		stage('deploy') {
+            steps{
+                sh script: '''
+                #!/bin/bash
+				pwd
+                cd $WORKSPACE/frontend-app/
+                #get kubectl for this demo
+                curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+                chmod +x ./kubectl
+				./kubectl version --client --short
+                cat ./frontend-app.yaml | sed s/1.0.0/${BUILD_NUMBER}/g | ./kubectl apply -f -
+                '''
+        }
+    }
+		// stage('Deploying App to Kubernetes') {
+		// 	steps {
+		// 		script {
+		// 			sh "ls -a"
+		// 			sh "cat frontend-app.yaml | sed s/latest/${BUILD_NUMBER}/g >> ./frontend-app-tmp.yaml"
+		// 			sh "ls -a"
+		// 			sh "cat frontend-app-tmp.yaml"
+		// 			kubernetesDeploy(configs: "frontend-app-tmp.yaml", kubeconfigId: "kubernetes")
+		// 		}
+		// 	}
+		// }
 	}
 }
