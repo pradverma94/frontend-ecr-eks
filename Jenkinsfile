@@ -30,12 +30,12 @@ pipeline{
 				}
 			}
 		}
-		stage('Deploying App to Kubernetes') {
-			steps {
-				script {
-					kubernetesDeploy(configs: "deploymentservice.yml | sed s/1.0.0/${BUILD_NUMBER}/g", kubeconfigId: "kubernetes")
-				}
-			}
-		}
+		// stage('Deploying App to Kubernetes') {
+		// 	steps {
+		// 		script {
+		// 			kubernetesDeploy(configs: "deploymentservice.yml | sed s/1.0.0/${BUILD_NUMBER}/g", kubeconfigId: "kubernetes")
+		// 		}
+		// 	}
+		// }
 	}
 }
