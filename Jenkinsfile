@@ -21,7 +21,7 @@ pipeline{
 					sh 'rm -f ~/.dockercfg ~/.docker/config.json || true'
 					sh 'docker --version'
 					// configure registry
-					docker.withRegistry("$DOCKER_USERNAME", "$JENKINS_ID_AWS_ECR") {
+					docker.withRegistry("$AWS_ECR_REGISTRY", "$JENKINS_ID_AWS_ECR") {
 						// build image
 						def customImage = docker.build("$AWS_ECR_REPO")
 						// push image
