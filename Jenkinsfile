@@ -38,6 +38,8 @@ pipeline{
                 cd $WORKSPACE/
 				ls | grep yaml
                 #get kubectl
+				kubectl version --client --short
+				kubectl version --client --short
                 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
                 chmod +x ./kubectl
 				./kubectl version --client --short
