@@ -15,7 +15,10 @@ pipeline{
 		JENKINS_ID_AWS_ECR = 'ecr:ap-south-1:59b8faec-d998-4ac7-af96-1352d86b595e'
 	}
 	stages {
-		stage('docker') {
+		// stage("Initialize") {
+		// 	echo "${BUILD_NUMBER} - ${env.BUILD_ID} on ${env.JENKINS_URL}"
+		// }
+		stage('Checkout and Build') {
 			steps {
 				script {
 					sh 'rm -f ~/.dockercfg ~/.docker/config.json || true'
@@ -39,20 +42,9 @@ pipeline{
 				ls | grep yaml
 				kubectl version --client --short
 				cat ./frontend-app.yaml | sed s/IMG_TAG/${BUILD_NUMBER}/g
-                cat ./frontend-app.yaml | sed s/IMG_TAG/${BUILD_NUMBER}/g | kubectl apply -f -
+                cat ./frontend-app.yaml | sed s/IMG_TAG/${BUILD_NUMBER}/g | kubectl apply -n default -f -
                 '''
         }
     }
-		// stage('Deploying App to Kubernetes') {
-		// 	steps {
-		// 		script {
-		// 			sh "ls -a"
-		// 			sh "cat frontend-app.yaml | sed s/latest/${BUILD_NUMBER}/g >> ./frontend-app-tmp.yaml"
-		// 			sh "ls -a"
-		// 			sh "cat frontend-app-tmp.yaml"
-		// 			kubernetesDeploy(configs: "frontend-app-tmp.yaml", kubeconfigId: "kubernetes")
-		// 		}
-		// 	}
-		// }
 	}
 }
