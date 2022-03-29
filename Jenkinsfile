@@ -42,7 +42,7 @@ pipeline{
 				ls | grep yaml
 				kubectl version --client --short
 				cat ./frontend-app.yaml | sed s/IMG_TAG/${BUILD_NUMBER}/g
-                cat ./frontend-app.yaml | sed s/IMG_TAG/${BUILD_NUMBER}/g | kubectl apply -n default -f -
+                cat ./frontend-app.yaml | sed s/IMG_TAG/${BUILD_NUMBER}/g | kubectl apply -n beta -f -
                 '''
         }
     }
